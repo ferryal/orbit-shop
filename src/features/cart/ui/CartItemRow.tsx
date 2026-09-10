@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { CartItem } from "@/entities/product/model/types";
 import { useCartStore } from "@/features/cart/model/cartStore";
+import { getCategoryEmoji } from "@/shared/lib/categoryEmojis";
 import { ConfirmDialog } from "@/shared/ui/ConfirmDialog";
 import { Delete01Icon, MinusSignIcon, PlusSignIcon } from "hugeicons-react";
 import { useState } from "react";
@@ -9,13 +10,6 @@ interface CartItemRowProps {
   item: CartItem;
 }
 
-const CATEGORY_EMOJIS: Record<string, string> = {
-  Audio: "🎧",
-  Wearables: "⌚",
-  Accessories: "🔋",
-  Peripherals: "🖱️",
-  Storage: "💾",
-};
 
 export function CartItemRow({ item }: CartItemRowProps) {
   const { updateQuantity, removeItem } = useCartStore();
@@ -39,7 +33,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
       <div className="flex items-center gap-3 py-3 border-b border-border/50 last:border-0">
         {/* Product thumbnail */}
         <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-xl flex-shrink-0">
-          {CATEGORY_EMOJIS[item.product.category ?? ""] ?? "📦"}
+          {getCategoryEmoji(item.product.category)}
         </div>
 
         {/* Product details */}

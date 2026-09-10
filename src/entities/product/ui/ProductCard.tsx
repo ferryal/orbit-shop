@@ -7,20 +7,13 @@ import {
 } from "@/components/ui/card";
 import type { Product } from "@/entities/product/model/types";
 import { useCartStore } from "@/features/cart/model/cartStore";
+import { getCategoryEmoji } from "@/shared/lib/categoryEmojis";
 import { ShoppingCart01Icon } from "hugeicons-react";
 import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
 }
-
-const CATEGORY_EMOJIS: Record<string, string> = {
-  Audio: "🎧",
-  Wearables: "⌚",
-  Accessories: "🔋",
-  Peripherals: "🖱️",
-  Storage: "💾",
-};
 
 export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
@@ -37,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardHeader className="p-0">
         <div className="relative h-48 bg-gradient-to-br from-muted/60 to-muted flex items-center justify-center text-5xl overflow-hidden">
           <span className="transition-transform duration-300 group-hover:scale-110 select-none">
-            {CATEGORY_EMOJIS[product.category ?? ""] ?? "📦"}
+            {getCategoryEmoji(product.category)}
           </span>
           {product.category && (
             <span className="absolute top-2 right-2 text-xs font-medium bg-background/80 backdrop-blur-sm text-muted-foreground px-2 py-1 rounded-full border border-border/50">
